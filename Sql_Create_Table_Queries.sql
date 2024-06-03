@@ -1,0 +1,32 @@
+USE [Arpit_Sql_Task8]
+
+CREATE TABLE Employee(
+	EmpNo VARCHAR(6) NOT NULL
+	,FirstName VARCHAR(10) NOT NULL
+	,LastName VARCHAR(10) NOT NULL
+	,DateOfBirth VARCHAR(8)
+	,Email VARCHAR(30) NOT NULL
+	,MobileNumber VARCHAR(10)
+	,JoiningDate VARCHAR(8) NOT NULL
+	,LocationID INT UNIQUE NOT NULL
+	,JobTitle VARCHAR(20) NOT NULL
+	,Department VARCHAR(20) NOT NULL
+	,Manager VARCHAR(20)
+	,Project VARCHAR(20)
+)
+
+GO
+
+CREATE TABLE Roles(
+	 RoleName VARCHAR(10) NOT NULL
+	,Department VARCHAR(20) NOT NULL
+	,[Description] VARCHAR(20)
+	,LocationID INT UNIQUE NOT NULL
+)
+
+GO
+
+CREATE TABLE Locations(
+	 LocationID INT UNIQUE NOT NULL
+	 ,LocationName VARCHAR(10) NOT NULL
+)
