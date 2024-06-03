@@ -16,48 +16,31 @@ namespace EmployeeManagement.DataAccess
 {
     public class RoleDataAccess:IRoleDataAccess
     {
-        public void Build() {
-
-            TinyMapper.Bind<Role, RoleModel>(config =>
-            {
-                config.Ignore(x => x.RoleEntityId);
-
-
-            });
-            TinyMapper.Bind<RoleModel, Role>();
-        }
-
-
-        public List<RoleModel> GetAll()
+       
+        public List<Role> GetAll()
         {
-            Build();
-            List<RoleModel> roles = new List<RoleModel>(); // Initialize the list
+           
+            // Initialize the list
             List<Role>roleDataList= new List<Role>();
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
                 roleDataList=context.Roles.ToList();
 
-                foreach(Role role in roleDataList)
-                {
-                
-                    roles.Add(TinyMapper.Map<RoleModel>(role));
-                }
+              
                 context.SaveChanges();
 
             }
-            return roles;
+            return roleDataList;
         }
 
 
-        public bool Set(RoleModel role)
+        public bool Set(Role role)
         {
-            Build();
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
-                Role roleData=TinyMapper.Map<Role>(role);
-                context.Roles.Add(roleData);
+                context.Roles.Add(role);
                 context.SaveChanges();
 
             }

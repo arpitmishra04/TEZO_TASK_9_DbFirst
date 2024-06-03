@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Model;
+﻿using EmployeeManagement.DataAccess.Entities;
+using EmployeeManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace EmployeeManagement.DataAccess.Interfaces
 {
     public interface IEmployeeDataAccess
     {
-        public List<EmployeeModel> GetAll();
-        public EmployeeModel GetOne(string employeeNumber);
-        public bool Update(EmployeeModel updatedEmployee,string EmpNo);
+        public List<Employee> GetAll();
+        public Employee GetOne(string employeeNumber);
+        public bool Update(Employee updatedEmployee);
         public bool Delete(string employeeNumber);
-        public bool Set(EmployeeModel employee);
+        public bool Set(Employee employee);
 
     }
 }

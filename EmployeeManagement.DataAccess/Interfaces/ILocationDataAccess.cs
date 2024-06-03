@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Model;
+﻿using EmployeeManagement.DataAccess.Entities;
+using EmployeeManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace EmployeeManagement.DataAccess.Interfaces
 {
     public interface ILocationDataAccess
     {
-        public List<LocationModel> GetAll();
-        public bool Set(LocationModel locationList);
+        public List<Location> GetAll();
+        public bool Set(Location locationList);
     }
 }

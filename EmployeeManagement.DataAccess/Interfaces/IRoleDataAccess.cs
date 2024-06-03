@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.Model;
+﻿using EmployeeManagement.DataAccess.Entities;
+using EmployeeManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace EmployeeManagement.DataAccess.Interfaces
 {
     public interface IRoleDataAccess
     {
-        public List<RoleModel> GetAll();
-        public bool Set(RoleModel role);
+        public List<Role> GetAll();
+        public bool Set(Role role);
     }
 }

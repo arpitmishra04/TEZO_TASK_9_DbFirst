@@ -1,7 +1,9 @@
 ﻿using EmployeeManagement.Core.Interfaces;
 using EmployeeManagement.DataAccess;
+using EmployeeManagement.DataAccess.Entities;
 using EmployeeManagement.DataAccess.Interfaces;
 using EmployeeManagement.Model;
+using Nelibur.ObjectMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +21,22 @@ namespace EmployeeManagement.Core.Services
         
         public bool Add(LocationModel location)
         {
-            return locationDataAccess.Set(location); ;
+            Location loc = TinyMapper.Map<Location>(location);
+            return locationDataAccess.Set(loc); ;
         }
 
         public List<LocationModel> ViewAll()
         {
-            return locationDataAccess.GetAll();
+            List<LocationModel> locations = [];
+            List<Location> locs = locationDataAccess.GetAll();
+
+            foreach (Location loc in locs)
+            {
+                LocationModel location = TinyMapper.Map<LocationModel>(loc);
+                locations.Add(location);
+
+            }
+            return locations;
         }
     }
 }

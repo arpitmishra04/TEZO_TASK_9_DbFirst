@@ -11,26 +11,12 @@ namespace EmployeeManagement.DataAccess
     public class EmployeeDataAccess:IEmployeeDataAccess
     {
 
-        public void Build() {
-            TinyMapper.Bind<Employee, EmployeeModel>(config =>
-            {
-                config.Ignore(x => x.EmployeeEntityId);
-                config.Ignore(x => x.RoleEntityId);
-                
-            });
-
-            TinyMapper.Bind<EmployeeModel, Employee>();
-
-
-        }
+        
        
-        public  List<EmployeeModel> GetAll()
+        public  List<Employee> GetAll()
         {
-            Build();
             List<Employee> employees = [];
-            List<EmployeeModel> emps = [];
-           
-
+          
             using (var context = new ArpitSqlTask9CodeFirstContext())
                 {
                 context.Database.EnsureCreated();
@@ -38,13 +24,9 @@ namespace EmployeeManagement.DataAccess
                 employees=context.Employees.ToList();
 
             }
-                 foreach(Employee emp in employees)
-            {
-                emps.Add(TinyMapper.Map<EmployeeModel>(emp))    ;
-
-            }   
+                
                
-                  return emps; 
+                  return employees; 
             }
 
 
@@ -53,18 +35,18 @@ namespace EmployeeManagement.DataAccess
             
        
 
-        public EmployeeModel GetOne(string employeeNumber)
+        public Employee GetOne(string employeeNumber)
         {
 
-            Build();
+          
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
 
                 Employee emp =context.Employees.FirstOrDefault(e => e.EmpNo == employeeNumber)!;
-                EmployeeModel employee= TinyMapper.Map<EmployeeModel>(emp);
+                
 
-                return employee ;
+                return emp ;
 
             }
 
@@ -74,18 +56,18 @@ namespace EmployeeManagement.DataAccess
 
         
 
-        public bool Update(EmployeeModel updatedEmployee,string empNo)
+        public bool Update(Employee updatedEmployee)
         {
-             Build();
+             
              using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                   context.Database.EnsureCreated();
 
-                 var employeeToUpdate = context.Employees.FirstOrDefault(e => e.EmpNo == empNo);
-                if (employeeToUpdate != null)
+                 
+                if (updatedEmployee != null)
                   {
-                  TinyMapper.Map(updatedEmployee, employeeToUpdate);
-                 context.Entry(employeeToUpdate).State = EntityState.Modified;
+                 
+                 context.Entry(updatedEmployee).State = EntityState.Modified;
                  context.SaveChanges();
 
                 }
@@ -98,28 +80,35 @@ namespace EmployeeManagement.DataAccess
 
         public bool Delete(string employeeNumber)
         {
-            Build();
+         
              using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 var employeeToDelete = context.Employees.FirstOrDefault(e => e.EmpNo == employeeNumber);
                  context.Database.EnsureCreated();
 
-                 context.Remove<Employee>(employeeToDelete!);
-                 context.SaveChanges();
-                return true;
+                if (employeeToDelete != null)
+                {
+                    context.Remove(employeeToDelete!);
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
 
             }
 
 
             
         }
-        public bool Set(EmployeeModel employee)
+        public bool Set(Employee employee)
         {
-            Build();
+           
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
-                 Employee employeeEntity = TinyMapper.Map<Employee>(employee); ;
-                 context.Employees.Add(employeeEntity);
+                 
+                 context.Employees.Add(employee);
                 context.SaveChanges();
 
                 return true;

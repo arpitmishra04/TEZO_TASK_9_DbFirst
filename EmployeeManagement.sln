@@ -26,13 +26,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Presenta
 		{CAEF8025-19E3-4394-AE3D-2C8BF64CBFD0} = {CAEF8025-19E3-4394-AE3D-2C8BF64CBFD0}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{E7948DF9-44FB-41D8-8BAA-561ADA95EE98}"
-	ProjectSection(SolutionItems) = preProject
-		Employees.json = Employees.json
-		Locations.json = Locations.json
-		Roles.json = Roles.json
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

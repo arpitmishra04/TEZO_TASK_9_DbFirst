@@ -27,40 +27,30 @@ namespace EmployeeManagement.DataAccess
         }
         
 
-        public List<LocationModel> GetAll()
+        public List<Location> GetAll()
         {
             Build();
-            List<LocationModel> locations = [];
+            
             List<Location> locs = [];
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
                 locs=context.Locations.ToList();
-
-                foreach (Location loc in locs)
-                {
-                LocationModel location = TinyMapper.Map<LocationModel>(loc);
-                    locations.Add(location);
-
-                }
                 context.SaveChanges();
             }
 
-             return locations;
+             return locs;
 
         }
 
-        public bool Set(LocationModel location)
+        public bool Set(Location location)
         {
             Build();
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
-                Location loc = TinyMapper.Map<Location>(location);
-                context.Locations.Add(loc);
+                context.Locations.Add(location);
                 context.SaveChanges();
-
-                
 
             }
 

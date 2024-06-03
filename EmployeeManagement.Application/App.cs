@@ -2,7 +2,6 @@
 using EmployeeManagement.Core.Services;
 using EmployeeManagement.DataAccess;
 using EmployeeManagement.DataAccess.Interfaces;
-using EmployeeManagement.Interfaces;
 using EmployeeManagement.Presentation;
 using EmployeeManagement.Presentation.Inputs;
 using EmployeeManagement.Presentation.Interfaces;
