@@ -15,7 +15,8 @@ namespace EmployeeManagement.Presentation.Interfaces
         public string GetDateOfBirth();
         public int GetLocation(string roleName);
         public int GetLocation();
-        public string GetDepartment(string roleName);
+        public int GetDepartment(string roleName);
+        public int GetDepartment();
         public string GetMobileNumber();
         public string GetRole();
     }

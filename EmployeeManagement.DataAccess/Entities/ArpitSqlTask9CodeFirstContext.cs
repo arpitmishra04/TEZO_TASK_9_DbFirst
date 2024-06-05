@@ -15,6 +15,8 @@ public partial class ArpitSqlTask9CodeFirstContext : DbContext
     {
     }
 
+    public virtual DbSet<Department> Departments { get; set; }
+
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Location> Locations { get; set; }
@@ -27,6 +29,15 @@ public partial class ArpitSqlTask9CodeFirstContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Department>(entity =>
+        {
+            entity.HasKey(e => e.DepartmentEntityId);
+
+            entity.HasIndex(e => e.DepartmentId, "UQ__Departme__B2079BCC8DAFD25A").IsUnique();
+
+            entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
+        });
+
         modelBuilder.Entity<Employee>(entity =>
         {
             entity.HasKey(e => e.EmployeeEntityId);

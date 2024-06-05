@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Model
 {
-    public class RoleModel
+    public class DepartmentModel
     {
-        public required string RoleName { get; set; }
         public required int DepartmentId { get; set; }
-        public required string Description { get; set; }
-        public required int LocationId { get; set; }
-       
+        public required string DepartmentName { get; set; }
     }
 }

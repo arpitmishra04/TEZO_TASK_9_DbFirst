@@ -13,31 +13,31 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.DataAccess
 {
-    public class LocationDataAccess:ILocationDataAccess
+    public class DepartmentDataAccess:IDepartmentDataAccess
     {
    
-        public List<Location> GetAll()
+        public List<Department> GetAll()
         {
 
-            List<Location> locs = [];
+            List<Department> depts = [];
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
-                locs=context.Locations.ToList();
+                depts=context.Departments.ToList();
                 context.SaveChanges();
             }
 
-             return locs;
+             return depts;
 
         }
 
-        public bool Set(Location location)
+        public bool Set(Department department)
         {
             
             using (var context = new ArpitSqlTask9CodeFirstContext())
             {
                 context.Database.EnsureCreated();
-                context.Locations.Add(location);
+                context.Departments.Add(department);
                 context.SaveChanges();
 
             }

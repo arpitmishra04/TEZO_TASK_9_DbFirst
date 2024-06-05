@@ -20,16 +20,19 @@ namespace EmployeeManagement.Presentation.Inputs
         private IEmployeeService employeeService;
         private IRoleService roleService;
         private ILocationService locationService;
+        private IDepartmentService departmentService;
         private IValidation validation;
         private ILocationOperation locationOperation;
-        //private IRoleOperation roleOperation;
-        public Input(IEmployeeService _employeeService, IRoleService _RoleService, ILocationService _locationService,IValidation _validation,ILocationOperation _locationOperation/*,IRoleOperation _roleOperation*/) {
+        private IDepartmentOperation departmentOperation;
+
+        public Input(IEmployeeService _employeeService, IRoleService _RoleService, ILocationService _locationService,IValidation _validation,ILocationOperation _locationOperation, IDepartmentService _departmentService, IDepartmentOperation _departmentOperation) {
             this.employeeService = _employeeService;
             this.roleService = _RoleService;
             this.locationService = _locationService;
             this.validation = _validation;
             this.locationOperation = _locationOperation;
-            //this.roleOperation = _roleOperation;
+            this.departmentService = _departmentService;
+            this.departmentOperation = _departmentOperation;
         } 
       
         public string GetId(int val)
@@ -229,34 +232,34 @@ namespace EmployeeManagement.Presentation.Inputs
 
         }
 
-        public  string GetDepartment(string roleName)
+        public int GetDepartment(string roleName)
         {
-
             List<RoleModel> roleList = roleService.ViewAll();
-            List<LocationModel> locationList = locationService.ViewAll();
+            List<DepartmentModel> departmentList = departmentService.ViewAll();
             Dictionary<string, Action> cases = new Dictionary<string, Action>();
 
-            int i = 1;
-            string department = "";
+            int i = 1, departmentId = 0;
 
             foreach (RoleModel role in roleList)
             {
 
                 if (role.RoleName == roleName)
                 {
-                    cases.Add($"{i}", () => { department = role.Department; });
-                    Console.WriteLine($"{i}. {role.Department}");
+                    cases.Add($"{i}", () => { departmentId = role.DepartmentId; });
+                    Console.WriteLine($"{i}. {departmentList.Find(department => department.DepartmentId == role.DepartmentId)!.DepartmentName}");
 
                     i++;
                 }
 
             }
-            
+         
+
             string input = Console.ReadLine()!;
             bool isValidDepartment = false;
 
-            while (true) {
-                if (input == "0") return input;
+            while (true)
+            {
+                if (input == "0") return 0;
                 isValidDepartment = validation.ValidateOptions(input);
                 if (isValidDepartment) break;
                 input = Console.ReadLine()!;
@@ -269,7 +272,7 @@ namespace EmployeeManagement.Presentation.Inputs
                 if (cases.ContainsKey(input))
                 {
                     cases[input].Invoke();
-                    return department;
+                    return departmentId;
                 }
                 else
                 {
@@ -280,7 +283,66 @@ namespace EmployeeManagement.Presentation.Inputs
 
 
         }
+        public int GetDepartment()
+        {
+            List<DepartmentModel> departmentList = departmentService.ViewAll();
+            Dictionary<string, Action> cases = new Dictionary<string, Action>();
+            int i = 1, departmentId = 0;
+            if (departmentList != null)
+            {
+                foreach (DepartmentModel department in departmentList)
+                {
+                    Console.WriteLine($"{i}. {department.DepartmentName}");
+                    cases.Add($"{i}", () => { departmentId = department.DepartmentId; });
+                    i++;
+                }
+            }
+            Console.WriteLine($"{i}. Other");
+            cases.Add($"{i}", () => {
+                Console.WriteLine("Enter the name of the Department");
+                string departmentName = Console.ReadLine()!;
+                bool isNotDuplicateDepartment = false;
+                while (true)
+                {
+                    if (departmentName == "0") return;
+                    isNotDuplicateDepartment = validation.ValidateLocation(departmentName);
+                    if (isNotDuplicateDepartment) break;
+                    Console.WriteLine("Cannot Enter Duplicate or Empty Location please re-enter.");
+                    departmentName = Console.ReadLine()!;
+                }
+                departmentId = departmentOperation.Add(departmentName);
+            });
 
+            string option = Console.ReadLine()!;
+            bool isValidDepartment = false;
+
+            while (true)
+            {
+                if (option == "0") return 0;
+                isValidDepartment = validation.ValidateOptions(option!);
+                if (isValidDepartment) break;
+                option = Console.ReadLine()!;
+            }
+
+
+            while (true)
+            {
+
+                if (cases.ContainsKey(option))
+                {
+                    cases[option].Invoke();
+                    return departmentId;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input");
+                    option = Console.ReadLine()!;
+                }
+            }
+
+
+
+        }
         public  string GetMobileNumber()
         {
             string mobileNumber = Console.ReadLine()!;

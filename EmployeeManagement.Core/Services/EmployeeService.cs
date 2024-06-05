@@ -82,7 +82,7 @@ namespace EmployeeManagement.Core.Services
         {
             Build();
             Employee emp = employeeDataAccess.GetOne(employeeNumber);
-            EmployeeModel employee = new EmployeeModel { EmpNo = "", FirstName = "", LastName = "", DateOfBirth = "", Email = "", MobileNumber = "", JobTitle = "", Department = "", JoiningDate = "", LocationId = -1, Manager = "", Project = "" };
+            EmployeeModel employee = new EmployeeModel { EmpNo = "", FirstName = "", LastName = "", DateOfBirth = "", Email = "", MobileNumber = "", JobTitle = "", DepartmentId = -1, JoiningDate = "", LocationId = -1, Manager = "", Project = "" };
             TinyMapper.Map(emp, employee);
             return employee;
         }

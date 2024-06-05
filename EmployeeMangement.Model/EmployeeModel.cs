@@ -13,7 +13,7 @@ namespace EmployeeManagement.Model
         public required string JoiningDate { get; set; }
         public required int LocationId { get; set; }
         public required string JobTitle { get; set; }
-        public required string Department { get; set; }
+        public required int DepartmentId { get; set; }
         public required string Manager { get; set; }
         public required string Project { get; set; }
 

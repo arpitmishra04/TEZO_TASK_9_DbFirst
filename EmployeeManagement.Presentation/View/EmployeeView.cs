@@ -12,11 +12,14 @@ namespace EmployeeManagement.Presentation.View
     {
         private IEmployeeService employeeService;
         private ILocationService locationService;
+        private IDepartmentService departmentService;
         private IValidation validation;
-        public EmployeeView(IEmployeeService _employeeService,ILocationService _locationservice,IValidation _validation) {
+
+        public EmployeeView(IEmployeeService _employeeService,ILocationService _locationservice,IValidation _validation,IDepartmentService _departmentService) {
             this.employeeService = _employeeService;
             this.locationService = _locationservice;
             this.validation = _validation;
+            this.departmentService = _departmentService;
 
         }
        
@@ -24,6 +27,7 @@ namespace EmployeeManagement.Presentation.View
         public int ViewAll()
         {
             List<LocationModel> locationList = locationService.ViewAll();
+            List<DepartmentModel> departmentList = departmentService.ViewAll();
             List<EmployeeModel> empList = employeeService.ViewAll();
             if (empList.Count == 0 || empList == null)
             {
@@ -51,7 +55,7 @@ namespace EmployeeManagement.Presentation.View
                     employee.JoiningDate,
                     locationList.Find(location => location.LocationId == employee.LocationId)!.LocationName,
                     employee.JobTitle,
-                    employee.Department,
+                    departmentList.Find(department => department.DepartmentId == employee.DepartmentId)!.DepartmentName,
                     employee.Manager,
                     employee.Project
                     );  
@@ -64,6 +68,7 @@ namespace EmployeeManagement.Presentation.View
         public void ViewOne()
         {
             List<EmployeeModel> emplist = employeeService.ViewAll();
+            List<DepartmentModel> departmentList = departmentService.ViewAll();
             List<LocationModel> locationList = locationService.ViewAll();
             if (emplist.Count == 0)
             {
@@ -113,7 +118,7 @@ namespace EmployeeManagement.Presentation.View
                         employee.JoiningDate,
                         locationList.Find(location=>location.LocationId==employee.LocationId)!.LocationName,
                         employee.JobTitle,
-                        employee.Department,
+                        departmentList.Find(department => department.DepartmentId == employee.DepartmentId)!.DepartmentName,
                         employee.Manager,
                         employee.Project
                         );

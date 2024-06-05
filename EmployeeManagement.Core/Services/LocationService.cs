@@ -18,15 +18,27 @@ namespace EmployeeManagement.Core.Services
         public LocationService(ILocationDataAccess _locationDataAccess) {
             this.locationDataAccess = _locationDataAccess;
         }
-        
+
+        public void Build()
+        {
+            TinyMapper.Bind<Location, LocationModel>(config =>
+            {
+                config.Ignore(x => x.LocationEntityId);
+
+
+            });
+            TinyMapper.Bind<LocationModel, Location>();
+        }
         public bool Add(LocationModel location)
         {
+            Build();
             Location loc = TinyMapper.Map<Location>(location);
-            return locationDataAccess.Set(loc); ;
+            return locationDataAccess.Set(loc); 
         }
 
         public List<LocationModel> ViewAll()
         {
+            Build();
             List<LocationModel> locations = [];
             List<Location> locs = locationDataAccess.GetAll();
 

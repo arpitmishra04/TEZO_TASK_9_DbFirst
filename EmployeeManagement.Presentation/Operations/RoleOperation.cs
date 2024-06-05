@@ -32,8 +32,8 @@ namespace EmployeeManagement.Presentation.Operations
             if (jobTitle == "0") return "";
 
             Console.WriteLine("Enter Department for the Role");
-            string department = input.GetNameTypeInput("Department");
-            if (department == "0") return "";
+            int department = input.GetDepartment();
+            if (department == 0) return "";
 
             Console.WriteLine("Enter the description for the role");
             string description = Console.ReadLine()!;
@@ -47,7 +47,7 @@ namespace EmployeeManagement.Presentation.Operations
             RoleModel role = new RoleModel
             {
                 RoleName = jobTitle,
-                Department = department,
+                DepartmentId = department,
                 Description = description,
                 LocationId = locationId,
 

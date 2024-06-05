@@ -16,10 +16,12 @@ namespace EmployeeManagement.Presentation.View
     {
         private IRoleService roleService;
         private ILocationService locationService;
-        public RoleView(IRoleService _roleService,ILocationService _locationService) {
+        private IDepartmentService departmentService;
+        public RoleView(IRoleService _roleService,ILocationService _locationService, IDepartmentService _departmentService) {
             this.roleService = _roleService;
             this.locationService = _locationService;
-        
+            this.departmentService = _departmentService;
+
         }
         
        
@@ -28,7 +30,7 @@ namespace EmployeeManagement.Presentation.View
 
             List<RoleModel> roleList = roleService.ViewAll();
             List <LocationModel>locationList= locationService.ViewAll();
-            
+            List<DepartmentModel> departmentList = departmentService.ViewAll();
             var table = new ConsoleTable(
                 "Role Name",
                 "Department",
@@ -41,7 +43,7 @@ namespace EmployeeManagement.Presentation.View
                 table.AddRow(
                     
                     role.RoleName,
-                    role.Department,
+                    departmentList.Find(department => department.DepartmentId == role.DepartmentId)!.DepartmentName,
                     role.Description,
                     locationList.Find(location=>location.LocationId== role.LocationId)!.LocationName
                     

@@ -14,8 +14,8 @@ namespace EmployeeManagement.Presentation.Operations
    
     public class EmployeeOperation:IEmployeeOperation
     {
-        private string emp="", jobTitle="", firstName = "", lastName = "", dob = "", email = "", mobile = "", joiningDate = "",department = "" ,manager = "",project = ""; 
-        private int locationID=0;
+        private string emp="", jobTitle="", firstName = "", lastName = "", dob = "", email = "", mobile = "", joiningDate = "",manager = "",project = ""; 
+        private int locationID=0,departmentID=0;
         private  bool isExit = false;
         private IEmployeeView employeeView;
         private IValidation validation;
@@ -99,8 +99,8 @@ namespace EmployeeManagement.Presentation.Operations
         private void Department()
         {
             Console.WriteLine("\n Enter Employee Department:");
-             department = input.GetDepartment(jobTitle);
-            if (department == "0") isExit = true;
+             departmentID = input.GetDepartment(jobTitle);
+            if (departmentID == 0) isExit = true;
 
         }
 
@@ -167,7 +167,7 @@ namespace EmployeeManagement.Presentation.Operations
                 JoiningDate=joiningDate,
                 LocationId=locationID,
                 JobTitle=jobTitle,
-                Department=department,
+                DepartmentId=departmentID,
                 Manager=manager,
                 Project=project
             };
@@ -277,8 +277,8 @@ namespace EmployeeManagement.Presentation.Operations
                         employee.JobTitle = jobTitle;
                         
                     }
-                    if (!string.IsNullOrWhiteSpace(department)) { 
-                        employee.Department = department;
+                    if (departmentID!=0) { 
+                        employee.DepartmentId = departmentID;
                        
                     }
                     if (!string.IsNullOrWhiteSpace(manager)) { 

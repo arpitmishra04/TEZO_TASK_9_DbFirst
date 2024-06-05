@@ -9,7 +9,7 @@ public partial class Role
 
     public string RoleName { get; set; } = null!;
 
-    public string Department { get; set; } = null!;
+    public int DepartmentId { get; set; }
 
     public string Description { get; set; } = null!;
 

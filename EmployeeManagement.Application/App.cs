@@ -23,8 +23,10 @@ namespace EmployeeManagement.Application
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IDepartmentService, DepartmentService>();
             services.AddTransient<IEmployeeDataAccess, EmployeeDataAccess>();
             services.AddTransient<ILocationDataAccess, LocationDataAccess>();
+            services.AddTransient<IDepartmentDataAccess, DepartmentDataAccess>();
             services.AddTransient<IRoleDataAccess, RoleDataAccess>();
             services.AddTransient<IInput, Input>();
             services.AddTransient<IValidation, Validation>();
@@ -32,6 +34,7 @@ namespace EmployeeManagement.Application
             services.AddTransient<IEmployeeView, EmployeeView>();
             services.AddTransient<IEmployeePresentation, EmployeePresentation>();
             services.AddTransient<ILocationOperation, LocationOperation>();
+            services.AddTransient<IDepartmentOperation, DepartmentOperation>();
             services.AddTransient<IRoleOperation, RoleOperation>();
             services.AddTransient<IRolePresentation, RolePresentation>();
             services.AddTransient<IRoleView, RoleView>();
